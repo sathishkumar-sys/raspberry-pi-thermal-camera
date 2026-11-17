@@ -80,3 +80,20 @@ thermal_project/
 │
 ├── README.md
 │   └── Project documentation
+## 📸 Project Gallery
+
+### 1. Thermal Camera Hardware Setup
+
+![Hardware Setup 1](images/circuit 1.jpeg)
+
+![Hardware Setup 2](images/circuit 2.jpeg)
+
+### 2. Live Thermal Imaging Output
+
+**Thermal detection – Object**
+
+![Thermal Output Object](images/test 1.jpeg)
+
+**Thermal detection – Human**
+
+![Thermal Output Person](images/test 2.jpeg)
