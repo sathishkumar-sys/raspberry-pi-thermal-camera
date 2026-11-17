@@ -63,7 +63,7 @@ The Raspberry Pi 4 communicates with the MI48 thermal camera through SPI and I2C
 
 ##  Project Structure
 
-```text
+text
 thermal_project/
 │
 ├── main.py
@@ -82,18 +82,18 @@ thermal_project/
 │   └── Project documentation
 ## 📸 Project Gallery
 
-### 1. Thermal Camera Hardware Setup
+1. Thermal Camera Hardware Setup
 
-![Hardware Setup 1](images/circuit 1.jpeg)
+[Hardware Setup 1](images/circuit 1.jpeg)
 
-![Hardware Setup 2](images/circuit 2.jpeg)
+[Hardware Setup 2](images/circuit 2.jpeg)
 
-### 2. Live Thermal Imaging Output
+ 2. Live Thermal Imaging Output
 
-**Thermal detection – Object**
+Thermal detection – Object
 
-![Thermal Output Object](images/test 1.jpeg)
+[Thermal Output Object](images/test 1.jpeg)
 
-**Thermal detection – Human**
+Thermal detection – Human
 
-![Thermal Output Person](images/test 2.jpeg)
+[Thermal Output Person](images/test 2.jpeg)
