@@ -13,6 +13,7 @@ from config import (
     WINDOW_TITLE
 )
 
+from data_logger import ThermalDataLogger
 from temperature import get_temperature_stats
 from thermal_processing import process_thermal_image
 
@@ -269,18 +270,16 @@ if int(mi48.fw_version[0]) >= 2:
     # from the readout of the MI48:
     # mi48.set_offset_corr(-5.55)
     #
+    mi48.set_emissivity(95)
     # However, for most applications the factory level, per pixel
     # calibration is sufficient, so keep offset 0
     mi48.set_offset_corr(0.0)
+    print("Emissivity:", mi48.get_emissivity())
+    print("Temperature offset:", mi48.get_offset_corr_K())
 
 # initiate continuous frame acquisition
 with_header = True
-# Temperature display range (Celsius)
-TEMP_MIN = 18.0
-TEMP_MAX = 40.0
 
-# Image enlargement factor
-SCALE = 4
 # enable saving to a file
 if args.record:
     filename = get_filename(mi48.camera_id_hex)
@@ -290,6 +289,9 @@ mi48.start(stream=True, with_header=with_header)
 
 # change this to false if not interested in the image
 GUI = True
+
+thermal_logger = ThermalDataLogger(output_dir="data")
+frame_count = 0
 
 while True:
     # wait for data_ready pin (or poll for STATUS.DATA_READY /fw 2.1.X+)
@@ -324,6 +326,17 @@ while True:
     # Calculate temperature statistics
     min_temp, max_temp, avg_temp, center_temp = (
     get_temperature_stats(temp_img)
+    )
+
+    frame_count += 1
+
+    thermal_logger.log_frame(
+      frame_count,
+      temp_img,
+      min_temp,
+      max_temp,
+      avg_temp,
+      center_temp
     )
 
     # Process and enhance thermal image
@@ -366,8 +379,8 @@ while True:
 
 
 
-
     display = np.hstack((thermal, legend))
+
 
     if GUI:
         cv.imshow(WINDOW_TITLE, display)
@@ -387,3 +400,4 @@ except NameError:
     # file descriptor was closed or never created
     pass
 cv.destroyAllWindows()
+thermal_logger.close()
